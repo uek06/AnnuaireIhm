@@ -1,0 +1,64 @@
+<div id="message"></div>
+
+<!-- AJOUTER UN UTILISATEUR -->
+<div ng-controller="AddCtrl">
+  <button collapse="!isCollapsed" class="btn btn-default" ng-click="isCollapsed = !isCollapsed">Ajouter un utilisateur</button>
+  <div collapse="isCollapsed">
+    <div class="well well-lg" ng-include="template"</div>
+  </div>
+</div>
+
+<!-- TABLEAU -->
+<div>
+  <h3>Liste des utilisateurs :</h3>
+
+  <div class="cssTable">
+    <table class="table table-striped" singleSelect="true">
+
+      <!-- EN TETE -->
+      <tr>
+        <td><strong>Id</strong></td>
+        <td><strong>Nom</strong></td>
+        <td><strong>Prénom</strong></td>
+        <td><strong>Modifier</strong></td>
+        <td><strong>Voir/Modifier</strong></td>
+        <td><strong>Supprimer</strong></td>
+      </tr>
+
+      <!-- RECHERCHE -->
+      <tr>
+        <td></td>
+        <td><input type="text" ng-model="search.name" placeholder="Rechercher par nom"></td>
+        <td><input type="text" ng-model="search.surname" placeholder="Rechercher par prénom"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+
+      <!-- CONTENU -->
+      <tr collapse="user.$view" ng-repeat="user in users | filter:search">
+        <td>{{user.id}}</td>
+        <td>
+          <span ng-if="!user.$edit">{{user.name}}</span>
+          <div id="inputNameEdit" ng-if="user.$edit"><input class="form-control" type="text" ng-model="user.name"/></div>
+        </td>
+        <td>
+          <span ng-if="!user.$edit">{{user.surname}}</span>
+          <div id="inputSurnameEdit" ng-if="user.$edit"><input class="form-control" type="text" ng-model="user.surname"/></div>
+        </td>
+        <td>
+          <a ng-if="!user.$edit" href="" class="glyphicon glyphicon-pencil" ng-click="user.$edit = true"></a>
+          <a ng-if="user.$edit" href="" class="glyphicon glyphicon-ok"
+             ng-click="user.$edit = updateUser(user)"></a>
+        </td>
+        <td>
+          <a ng-click="viewUser(user)" href="" class="glyphicon glyphicon-search"</a>
+        </td>
+        <td>
+          <a ng-click="deleteUser(user)" href="" class="glyphicon glyphicon-remove"</a>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+</div>

@@ -1,0 +1,23 @@
+<form class="form-inline">
+  <div class="form-group" id="inputNameAdd">
+    <label class="control-label">NOM</label>
+    <input ng-model="newUserData.name" type="text" class="form-control" placeholder="Saisir le nom">
+  </div>
+  <div class="form-group" id="inputSurnameAdd">
+    <label class="control-label">Prénom</label>
+    <input ng-model="newUserData.surname" type="text" class="form-control" placeholder="Saisir le prénom">
+  </div>
+</form>
+
+<form class="form-inline">
+  <div class="form-group">
+    <label class="control-label">Mail</label>
+    <input ng-model="newUserData.email" type="text" class="form-control" placeholder="Saisir le mail">
+  </div>
+  <div class="form-group">
+    <label class="control-label">Site</label>
+    <input ng-model="newUserData.website" type="text" class="form-control" placeholder="Saisir le site">
+  </div>
+</form>
+
+<button type="button" ng-click="newUser()" class="btn btn-default">Ajouter</button>
