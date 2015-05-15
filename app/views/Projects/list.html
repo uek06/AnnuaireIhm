@@ -1,0 +1,68 @@
+<!-- AJOUTER UN PROJET -->
+<div ng-controller="AddProjectCtrl">
+  <div id="message"></div>
+  <button collapse="!isCollapsed" class="btn btn-default" ng-click="isCollapsed = !isCollapsed">Ajouter un projet
+  </button>
+  <div collapse="isCollapsed">
+    <div class="well well-lg" ng-include="template"></div>
+  </div>
+</div>
+
+<!-- TABLEAU -->
+<div>
+  <h3>Liste des projets :</h3>
+
+  <div class="cssTable">
+    <table class="table table-striped" singleSelect="true">
+
+      <!-- EN TETE -->
+      <tr>
+        <td><strong>Id</strong></td>
+        <td><strong>Titre</strong></td>
+        <td><strong>Description</strong></td>
+        <td><strong>Modifier</strong></td>
+        <td><strong>Voir/Modifier</strong></td>
+        <td><strong>Supprimer</strong></td>
+      </tr>
+
+      <!-- RECHERCHE -->
+      <tr>
+        <td></td>
+        <td><input type="text" ng-model="search.title" placeholder="Rechercher par titre"></td>
+        <td><input type="text" ng-model="search.description" placeholder="Rechercher par description"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+
+      <!-- CONTENU -->
+      <tr ng-repeat="project in projects | filter:search">
+        <td>{{project.id}}</td>
+        <td>
+          <span ng-if="!project.$edit">{{project.title}}</span>
+
+          <div id="inputTitleEdit" ng-if="project.$edit"><input class="form-control" type="text" ng-model="project.title"/>
+          </div>
+        </td>
+        <td>
+          <span ng-if="!project.$edit">{{project.description}}</span>
+
+          <div id="inputDescriptionEdit" ng-if="project.$edit"><input class="form-control" type="text"
+                                                               ng-model="project.description"/></div>
+        </td>
+        <td>
+          <a ng-if="!project.$edit" href="" class="glyphicon glyphicon-pencil" ng-click="project.$edit = true"></a>
+          <a ng-if="project.$edit" href="" class="glyphicon glyphicon-ok"
+             ng-click="project.$edit = updateProject(project)"></a>
+        </td>
+        <td>
+          <a ng-click="viewProject(project)" href="" class="glyphicon glyphicon-search"</a>
+        </td>
+        <td>
+          <a ng-click="deleteProject(project)" href="" class="glyphicon glyphicon-remove"</a>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+</div>

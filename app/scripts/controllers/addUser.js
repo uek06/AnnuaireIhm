@@ -1,4 +1,4 @@
-angular.module('pooIhmExemplesApp').controller('AddCtrl', function ($scope,$http,$rootScope) {
+angular.module('pooIhmExemplesApp').controller('AddUserCtrl', function ($rootScope,$scope,$http) {
   $scope.isCollapsed = true;
   $scope.template = "views/users/addUser.html";
 
@@ -14,7 +14,7 @@ angular.module('pooIhmExemplesApp').controller('AddCtrl', function ($scope,$http
         .success(function () {
           $http.get('http://poo-ihm-2015-rest.herokuapp.com/api/Users')
             .success(function (data) {
-              $scope.users = data.data;
+              $rootScope.users = data.data;
               $scope.isCollapsed=true;
               $scope.newUserData={};
               $('#message').text('');

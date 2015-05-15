@@ -1,0 +1,19 @@
+<form class="form-inline">
+  <div class="form-group" id="inputTitleAdd">
+    <label class="control-label">Titre</label>
+    <input ng-model="newProjectData.title" type="text" class="form-control" placeholder="Saisir le titre">
+  </div>
+  <div class="form-group" id="inputDescriptionAdd">
+    <label class="control-label">Prénom</label>
+    <input ng-model="newProjectData.description" type="text" class="form-control" placeholder="Saisir la description">
+  </div>
+</form>
+
+<form class="form-inline">
+  <div class="form-group" id="inputYearAdd">
+    <label class="control-label">Année</label>
+    <input ng-model="newProjectData.year" type="text" class="form-control" placeholder="Saisir l'année">
+  </div>
+</form>
+
+<button type="button" ng-click="newProject()" class="btn btn-default">Ajouter</button>

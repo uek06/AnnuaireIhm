@@ -30,8 +30,7 @@ angular
         controller: 'AboutCtrl'
       })
       .when('/users' , {
-        templateUrl: 'views/Users/list.html',
-        controller: 'UsersCtrl'
+        templateUrl: '../views/head.html'
       })
       .when('/404' , {
         templateUrl: 'views/404.html'

@@ -8,7 +8,7 @@
  * Controller of the pooIhmExemplesApp
  */
 angular.module('pooIhmExemplesApp')
-  .controller('UsersCtrl', ['$rootScope','$scope', '$http', '$routeParams', 'ngDialog', function ($rootScope, $scope, $http, $routeParams, ngDialog, $modal) {
+  .controller('UsersCtrl', ['$rootScope','$scope', '$http', '$routeParams', 'ngDialog', function ($rootScope, $scope, $http, $routeParams, ngDialog) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -18,13 +18,14 @@ angular.module('pooIhmExemplesApp')
     //on récupère la base de données et on la stocke dans users
     $http.get('http://poo-ihm-2015-rest.herokuapp.com/api/Users')
       .success(function (data) {
-        $scope.users = data.data;
+        $rootScope.users = data.data;
       })
       .error(function () {
         location.href = '#/404';
       });
 
     $rootScope.edit={};
+    $scope.template = "views/users/list.html";
 
     $rootScope.checkString = function (name, balise) {
       if (name === undefined || name === '') {
@@ -39,10 +40,7 @@ angular.module('pooIhmExemplesApp')
       var checkName = $scope.checkString(user.name, "#inputNameEdit");
       var checkSurname = $scope.checkString(user.surname, "#inputSurnameEdit");
       if (checkName && checkSurname) {
-        var jsonUser = {};
-        jsonUser.name = user.name;
-        jsonUser.surname = user.surname;
-        $http.put('http://poo-ihm-2015-rest.herokuapp.com/api/Users/' + user.id, jsonUser);
+        $http.put('http://poo-ihm-2015-rest.herokuapp.com/api/Users/' + user.id, user);
         return false;
       }
       return true;
