@@ -7,7 +7,7 @@
     <div class="well well-lg" ng-include="template"></div>
   </div>
 </div>
-
+<button type="button" class="btn btn-default" ng-click="test()">LOOOOL</button>
 <!-- TABLEAU -->
 <div>
   <h3>Liste des projets :</h3>
@@ -37,27 +37,38 @@
 
       <!-- CONTENU -->
       <tr ng-repeat="project in projects | filter:search">
+        <!-- ID -->
         <td>{{project.id}}</td>
+
+        <!-- TITRE -->
         <td>
           <span ng-if="!project.$edit">{{project.title}}</span>
-
-          <div id="inputTitleEdit" ng-if="project.$edit"><input class="form-control" type="text" ng-model="project.title"/>
+          <div id="inputTitleEdit" ng-if="project.$edit"><input class="form-control" type="text"
+                                                                ng-model="project.title"/>
           </div>
         </td>
+
+        <!-- DESCRIPTION -->
         <td>
           <span ng-if="!project.$edit">{{project.description}}</span>
-
-          <div id="inputDescriptionEdit" ng-if="project.$edit"><input class="form-control" type="text"
-                                                               ng-model="project.description"/></div>
+          <div id="inputDescriptionEdit" ng-if="project.$edit"><textarea class="form-control"
+                                                                         ng-model="project.description"
+                                                                         rows="2"></textarea></div>
         </td>
+
+        <!-- MODIFIER -->
         <td>
           <a ng-if="!project.$edit" href="" class="glyphicon glyphicon-pencil" ng-click="project.$edit = true"></a>
           <a ng-if="project.$edit" href="" class="glyphicon glyphicon-ok"
              ng-click="project.$edit = updateProject(project)"></a>
         </td>
+
+        <!-- VOIR -->
         <td>
           <a ng-click="viewProject(project)" href="" class="glyphicon glyphicon-search"</a>
         </td>
+
+        <!-- SUPPRIMER -->
         <td>
           <a ng-click="deleteProject(project)" href="" class="glyphicon glyphicon-remove"</a>
         </td>

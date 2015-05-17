@@ -7,8 +7,8 @@
  * # AboutCtrl
  * Controller of the pooIhmExemplesApp
  */
-angular.module('pooIhmExemplesApp')
-  .controller('UsersCtrl', ['$rootScope','$scope', '$http', '$routeParams', 'ngDialog', function ($rootScope, $scope, $http, $routeParams, ngDialog) {
+angular.module('AnnuaireUgo')
+  .controller('UsersCtrl', ['$scope', '$http', '$routeParams', 'ngDialog','$rootScope', function ($scope, $http, $routeParams, ngDialog,$rootScope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -34,25 +34,32 @@ angular.module('pooIhmExemplesApp')
       }
       $(balise).attr('class', 'form-group has-success');
       return true;
-    }
+    };
 
     $scope.updateUser = function (user) {
       var checkName = $scope.checkString(user.name, "#inputNameEdit");
       var checkSurname = $scope.checkString(user.surname, "#inputSurnameEdit");
       if (checkName && checkSurname) {
-        $http.put('http://poo-ihm-2015-rest.herokuapp.com/api/Users/' + user.id, user);
+        $http.put('http://poo-ihm-2015-rest.herokuapp.com/api/Users/' + user.id, user)
+          .success(function () {
+            $http.get('http://poo-ihm-2015-rest.herokuapp.com/api/Users')
+              .success(function (data) {
+                $rootScope.users = data.data;
+              });
+          });
         return false;
       }
       return true;
-    }
+    };
 
-    $scope.viewUser = function (user) {
+    $rootScope.viewUser = function (user) {
       $rootScope.currentUser = user;
       ngDialog.open({
         template: 'views/users/viewUser.html',
-        controller: 'UsersCtrl'
+        controller:'UsersCtrl',
+        scope : $rootScope
       });
-    }
+    };
 
 
     $scope.deleteUser = function (user) {
@@ -67,7 +74,7 @@ angular.module('pooIhmExemplesApp')
               .success(function () {
                 $http.get('http://poo-ihm-2015-rest.herokuapp.com/api/Users')
                   .success(function (data) {
-                    $scope.users = data.data;
+                    $rootScope.users = data.data;
                   });
               });
             dialogItself.close();
@@ -80,15 +87,5 @@ angular.module('pooIhmExemplesApp')
         }]
       });
 
-    }
-
-    if ($routeParams.userId) {
-      $http.get('http://poo-ihm-2015-rest.herokuapp.com/api/Users/' + $routeParams.userId)
-        .success(function (data) {
-          if (data.status == "success") {
-            //$scope.currentUser = data.data;
-          }
-        });
-    }
-
+    };
   }]);

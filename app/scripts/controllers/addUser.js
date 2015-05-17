@@ -1,4 +1,4 @@
-angular.module('pooIhmExemplesApp').controller('AddUserCtrl', function ($rootScope,$scope,$http) {
+angular.module('AnnuaireUgo').controller('AddUserCtrl', function ($rootScope,$scope,$http) {
   $scope.isCollapsed = true;
   $scope.template = "views/users/addUser.html";
 

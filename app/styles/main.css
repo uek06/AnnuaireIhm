@@ -1,3 +1,17 @@
+@font-face {
+  font-family: 'Titre';
+  src: url('Cashew Apple Ale.ttf');
+}
+
+@font-face {
+  font-family: 'Soft';
+  src: url('Soft Elegance.ttf');
+}
+
+.navbar-brand{
+  font-family: 'Titre';
+  font-size : 50px;
+}
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
@@ -193,8 +207,8 @@ body {
   border: 0px solid #000000;
   text-align: center;
   border-width: 0px 0px 1px 1px;
-  font-size: 15px;
-  font-family: Comic Sans MS;
+  font-size: 18px;
+  font-family: Soft;
   font-weight: bold;
   color: #000000;
 }

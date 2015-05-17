@@ -1,36 +1,55 @@
 <table class="table">
+  <!-- TITRE -->
   <tr>
-    <td><strong>Nom</strong></td>
+    <td><strong>Titre</strong></td>
     <td>
-      <div class="form-group" id="inputNameEdit">
-        <span ng-if="!edit.$edit">{{currentUser.name}}</span>
-        <input ng-if="edit.$edit" class="form-control" type="text" ng-model="currentUser.name">
+      <div class="form-group" id="inputTitleEdit">
+        <span ng-if="!edit.$edit">{{currentProject.title}}</span>
+        <input ng-if="edit.$edit" class="form-control" type="text" ng-model="currentProject.title">
       </div>
     </td>
   </tr>
+  <!-- DESCRIPTION -->
   <tr>
-    <td><strong>Prénom</strong></td>
+    <td><strong>Description</strong></td>
     <td>
-      <div class="form-group" id="inputSurnameEdit">
-        <span ng-if="!edit.$edit">{{currentUser.surname}}</span>
-        <input ng-if="edit.$edit" class="form-control" type="text" ng-model="currentUser.surname">
+      <div class="form-group" id="inputDescriptionEdit">
+        <span ng-if="!edit.$edit">{{currentProject.description}}</span>
+        <textarea ng-if="edit.$edit" class="form-control" ng-model="currentProject.description" rows="2"></textarea>
       </div>
     </td>
   </tr>
+  <!-- ANNEE -->
   <tr>
-    <td><strong>Email</strong></td>
+    <td><strong>Année</strong></td>
     <td>
-      <span ng-if="!edit.$edit">{{currentUser.email}}</span>
-      <input ng-if="edit.$edit" type="text" class="form-control" ng-model="currentUser.email">
+      <div class="form-group" id="inputYearEdit">
+        <span ng-if="!edit.$edit">{{currentProject.year}}</span>
+        <input ng-if="edit.$edit" type="text" class="form-control" ng-model="currentProject.year">
+      </div>
     </td>
   </tr>
+  <!-- EQUIPE -->
   <tr>
-    <td><strong>Site</strong></td>
+    <td><strong>Equipe</strong></td>
     <td>
-      <span ng-if="!edit.$edit">{{currentUser.website}}</span>
-      <input ng-if="edit.$edit" type="text" class="form-control" ng-model="currentUser.website">
+      <div id="inputsLol" class="form-inline" ng-repeat="user in usersInProject">
+        <!-- NOM -->
+        <a href="" ng-if="!edit.$edit" ng-click="closeThisDialog('') ; viewUser(user)">{{user.name}}</a>
+        <select id=user.id ng-if="edit.$edit" class="form-inline">
+          <option ng-repeat="u in users">{{u.name}}</option>
+        </select>
+        <!-- ROLE -->
+        <span ng-if="!edit.$edit">: {{roles[user.id].name}}</span>
+        <input ng-if="edit.$edit" type="text" class="form-control" ng-model="roles[user.id].name">
+        <!-- SUPPRIMER -->
+        <a ng-if="edit.$edit" ng-click="closeThisDialog(''); deleteUserInProject(user)" href="" class="glyphicon glyphicon-remove"></a>
+      </div>
+      <a ng-if="edit.$edit" ng-click="addInput()" href="" class="glyphicon glyphicon-plus"></a>
     </td>
   </tr>
 </table>
+<span ng-if="!edit.$edit"><strong>Pour ajouter un utilisateur au projet, cliquez sur Editer</strong></span>
 <button ng-if="!edit.$edit" ng-click="edit.$edit = true" class="btn btn-default">Editer</button>
-<button ng-if="edit.$edit" ng-click="edit.$edit = updateUser(currentUser)" class="btn btn-default">Valider</button>
+<button ng-if="edit.$edit" ng-click="edit.$edit = updateProject(currentProject)" class="btn btn-default">Valider
+</button>
