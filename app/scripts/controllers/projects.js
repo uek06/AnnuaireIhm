@@ -61,6 +61,32 @@ angular.module('AnnuaireUgo')
       return true;
     };
 
+    $scope.deleteProject = function (project) {
+      BootstrapDialog.show({
+        message: 'Voulez-vous vraiment supprimer le projet ' + project.title + ' ?',
+        title: 'Attention',
+        buttons: [{
+          label: 'Oui',
+          cssClass: 'btn-primary',
+          action: function (dialogItself) {
+            $http.delete('http://poo-ihm-2015-rest.herokuapp.com/api/Projects/' + project.id)
+              .success(function () {
+                $http.get('http://poo-ihm-2015-rest.herokuapp.com/api/Projects')
+                  .success(function (data) {
+                    $scope.projects = data.data;
+                  });
+              });
+            dialogItself.close();
+          }
+        }, {
+          label: 'Non',
+          action: function (dialogItself) {
+            dialogItself.close();
+          }
+        }]
+      });
+    };
+
     $scope.test = function () {
       console.log('test"');
       var lol = {};
@@ -70,12 +96,12 @@ angular.module('AnnuaireUgo')
       $http.post('http://poo-ihm-2015-rest.herokuapp.com/api/Roles/', lol);
     };
 
-    $scope.viewProject = function (project) {
-      $scope.roles = [];
-      $scope.currentProject = project;
+    $rootScope.viewProject = function (project) {
+      $rootScope.roles = [];
+      $rootScope.currentProject = project;
       $http.get('http://poo-ihm-2015-rest.herokuapp.com/api/Projects/' + project.id + '/Users')
         .success(function (data) {
-          $scope.usersInProject = data.data;
+          $rootScope.usersInProject = data.data;
           $http.get('http://poo-ihm-2015-rest.herokuapp.com/api/Projects/' + project.id + '/Roles')
             .success(function (data2) {
               angular.forEach(data2.data, function (role) {
@@ -85,15 +111,14 @@ angular.module('AnnuaireUgo')
         });
       ngDialog.open({
         template: 'views/projects/viewProject.html',
-        scope: $scope
+        controller: 'ProjectsCtrl',
+        scope: $rootScope
       });
     };
 
     $scope.addInput = function () {
-      //var lol ='<select class="form-control"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>';
-      //$('#inputsLol').append(lol);
-      var newUser={};
-      $scope.usersInProject.push(newUser);
+      var res='<select ng-if="edit.$edit" class="form-inline"><option ng-repeat="u in users">{{u.name}}</option> </select>';
+      $('#plus').after(res);
     };
 
     $scope.deleteUserInProject = function (user) {
@@ -133,34 +158,6 @@ angular.module('AnnuaireUgo')
           }
         }]
       });
-    };
-
-
-    $scope.deleteProject = function (project) {
-      BootstrapDialog.show({
-        message: 'Voulez-vous vraiment supprimer le projet ' + project.title + ' ?',
-        title: 'Attention',
-        buttons: [{
-          label: 'Oui',
-          cssClass: 'btn-primary',
-          action: function (dialogItself) {
-            $http.delete('http://poo-ihm-2015-rest.herokuapp.com/api/Projects/' + project.id)
-              .success(function () {
-                $http.get('http://poo-ihm-2015-rest.herokuapp.com/api/Projects')
-                  .success(function (data) {
-                    $scope.projects = data.data;
-                  });
-              });
-            dialogItself.close();
-          }
-        }, {
-          label: 'Non',
-          action: function (dialogItself) {
-            dialogItself.close();
-          }
-        }]
-      });
-
     };
 
   }]);

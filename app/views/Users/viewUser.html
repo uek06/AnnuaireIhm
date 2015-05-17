@@ -31,6 +31,22 @@
       <input ng-if="edit.$edit" type="text" class="form-control" ng-model="currentUser.website">
     </td>
   </tr>
+  <!-- PROJETS -->
+  <tr>
+    <td><strong>Projets</strong></td>
+    <td>
+      <div class="form-inline" ng-repeat="project in projectsOfUser">
+        <!-- NOM -->
+        <a href="" ng-click="closeThisDialog('') ; viewProject(project)">{{project.title}}</a>
+        <!-- ROLE -->
+        <span ng-if="!edit.$edit">: {{roles2[project.id].name}}</span>
+        <input ng-if="edit.$edit" type="text" class="form-control" ng-model="roles2[project.id].name">
+        <!-- SUPPRIMER -->
+        <a ng-if="edit.$edit" ng-click="closeThisDialog(''); deleteProjectInUser(project)" href="" class="glyphicon glyphicon-remove"></a>
+      </div>
+      <a id="plus" ng-if="edit.$edit" ng-click="addInput()" href="" class="glyphicon glyphicon-plus"></a>
+    </td>
+  </tr>
 </table>
 <button ng-if="!edit.$edit" ng-click="edit.$edit = true" class="btn btn-default">Editer</button>
 <button ng-if="edit.$edit" ng-click="edit.$edit = updateUser(currentUser)" class="btn btn-default">Valider</button>

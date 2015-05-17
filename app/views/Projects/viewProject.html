@@ -33,19 +33,16 @@
   <tr>
     <td><strong>Equipe</strong></td>
     <td>
-      <div id="inputsLol" class="form-inline" ng-repeat="user in usersInProject">
+      <div class="form-inline" ng-repeat="user in usersInProject">
         <!-- NOM -->
-        <a href="" ng-if="!edit.$edit" ng-click="closeThisDialog('') ; viewUser(user)">{{user.name}}</a>
-        <select id=user.id ng-if="edit.$edit" class="form-inline">
-          <option ng-repeat="u in users">{{u.name}}</option>
-        </select>
+        <a href="" ng-click="closeThisDialog('') ; viewUser(user)">{{user.name}}</a>
         <!-- ROLE -->
         <span ng-if="!edit.$edit">: {{roles[user.id].name}}</span>
         <input ng-if="edit.$edit" type="text" class="form-control" ng-model="roles[user.id].name">
         <!-- SUPPRIMER -->
         <a ng-if="edit.$edit" ng-click="closeThisDialog(''); deleteUserInProject(user)" href="" class="glyphicon glyphicon-remove"></a>
       </div>
-      <a ng-if="edit.$edit" ng-click="addInput()" href="" class="glyphicon glyphicon-plus"></a>
+      <a id="plus" ng-if="edit.$edit" ng-click="addInput()" href="" class="glyphicon glyphicon-plus"></a>
     </td>
   </tr>
 </table>
